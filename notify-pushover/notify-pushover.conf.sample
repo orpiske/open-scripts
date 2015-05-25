@@ -1,5 +1,5 @@
 # The app token
-app.token=my_scripts_token
+app_token=my_scripts_token
 
 # Your user token
-user.token=my_personal_token
+user_token=my_personal_token
