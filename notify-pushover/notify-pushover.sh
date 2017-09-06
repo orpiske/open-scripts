@@ -1,20 +1,22 @@
 #!/bin/bash
 
-conf_file=$HOME/.orpiske/notify-pushover/notify-pushover.conf
+conf_file=$HOME/.notify-pushover/notify-pushover.conf
+conf_sample=$HOME/.notify-pushover/notify-pushover.conf.sample
 
-sample_conf_file=/etc/orpiske/notify-pushover/notify-pushover.conf.sample
-
-function load_settings() { 
+function load_settings() {
 	if [[ -f "$conf_file" ]] ; then
 		source "$conf_file"
 	else
-		echo "You must configure the application. Copy the sample configuration file from $sample_conf_file to $conf_file" 
+		mkdir -p $(dirname $conf_sample)
+		printf '#Application token\napp_token=my_scripts_token\n\n#User token/key\nuser_token=my_personal_token\n' > $conf_sample
+
+		echo "You must configure the application. A sample configuration file was created on $conf_sample"
 		exit 3
 	fi
 }
 
 
-function send() { 
+function send() {
 	if [[ -z "$1" ]] ; then
 		echo "The message must not be blank"
 		exit 4
@@ -28,14 +30,14 @@ function send() {
 }
 
 
-function check_settings() { 
+function check_settings() {
 	if [[ -z $app_token ]] ; then
-		echo "You must configure the application token in your $conf_file" ; 
+		echo "You must configure the application token in your $conf_file" ;
 		exit 1
 	fi
 
-	if [[ -z $user_token ]] ; then 
-		echo "You must configure the user token in your $conf_file" ; 
+	if [[ -z $user_token ]] ; then
+		echo "You must configure the user token in your $conf_file" ;
 		exit 2
 	fi
 }
