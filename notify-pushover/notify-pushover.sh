@@ -22,7 +22,7 @@ function send() {
 		exit 4
 	fi
 
-	curl -s \
+	curl -o /dev/null -s \
 		--form-string "token=$app_token" \
 		--form-string "user=$user_token" \
 		--form-string "message=$1" \
